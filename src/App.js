@@ -1,13 +1,24 @@
 import React, { Component } from 'react'
+import {
+    HashRouter as Router,
+    Route,
+    Switch,
+    Redirect,
+    withRouter
+} from 'react-router-dom'
 import { Layout, Breadcrumb } from 'antd'
-import './App.css'
+
+//import App from './App'
+import Page from './components/Page'
+import Login from './scenes/Login'
+import Home from './scenes/Home'
+import PrivateRoute from './PrivateRoute'
 import HeaderCustom from './components/Header'
 import SiderCustom from './components/Sider'
+import Main from './components/Main'
 
-const { Content } = Layout;
-
-class App extends Component {
-  state = {
+class BasicRoutes extends Component {
+	state = {
     collapsed: false,
   }
   toggle = () => {
@@ -15,26 +26,32 @@ class App extends Component {
         collapsed: !this.state.collapsed,
     })
   }
-  render() {
-    return (
-      <Layout>
-        <HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} />
-        <Layout className="ant-layout-has-sider">
-          <SiderCustom collapsed={this.state.collapsed} />
-          <Layout style={{ padding: '0 24px 24px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>
-            <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
-              Content
-            </Content>
-          </Layout>
-        </Layout>
-      </Layout>
-    );
-  }
+	render() {
+		return (
+			<Router>
+				<Switch>
+					<Route path="/login" component={Login} />
+					<PrivateRoute>
+						<Layout>
+							<HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} />
+							<Layout className="ant-layout-has-sider">
+								<SiderCustom collapsed={this.state.collapsed} />
+								<Layout style={{ padding: '0 24px 24px' }}>
+									<Main>
+										<Switch>
+											<Route path="/home" component={Home}  />
+										</Switch>
+									</Main>
+								</Layout>
+							</Layout>
+						</Layout>
+
+						
+					</PrivateRoute>
+				</Switch>
+			</Router>
+		)
+	}
 }
 
-export default App;
+export default BasicRoutes

@@ -2,13 +2,10 @@ import React, { Component } from 'react'
 import {
     HashRouter as Router,
     Route,
-    Switch,
-    Redirect,
-    withRouter
+    Switch
 } from 'react-router-dom'
 import { Layout, Breadcrumb } from 'antd'
 
-//import App from './App'
 import Page from './components/Page'
 import Login from './scenes/Login'
 import Home from './scenes/Home'
@@ -30,7 +27,7 @@ class BasicRoutes extends Component {
 		return (
 			<Router>
 				<Switch>
-					<Route path="/login" component={Login} />
+					{/* <Route path="/login" component={Login} /> */}
 					<PrivateRoute>
 						<Layout>
 							<HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} />
@@ -39,14 +36,12 @@ class BasicRoutes extends Component {
 								<Layout style={{ padding: '0 24px 24px' }}>
 									<Main>
 										<Switch>
-											<Route path="/home" component={Home}  />
+											<Route exact path="/home" component={Home}  />
 										</Switch>
 									</Main>
 								</Layout>
 							</Layout>
 						</Layout>
-
-						
 					</PrivateRoute>
 				</Switch>
 			</Router>

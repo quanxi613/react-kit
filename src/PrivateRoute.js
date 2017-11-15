@@ -18,9 +18,27 @@ import {
 // )
 
 const PrivateRoute = (props) => (
-	<Route render={() => (		
-		<div>{props.children}</div>		
+	<Route render={() => (
+		<div>{props.children}</div>
 	)}/>
 )
+
+// const PrivateRoute = (props) => (
+// 	<Route render={() => (
+// 		fakeAuth.isAuthenticated ? (
+//       <div>{props.children}</div>
+//       ) : (
+//       <Redirect to={{
+//           pathname: '/login',
+//           state: { from: props.location }
+//       }}/>
+//     )
+// 	)}/>
+// )
+
+const fakeAuth = {
+  isAuthenticated: true,
+}
+
 
 export default PrivateRoute
